@@ -23,7 +23,7 @@ import time
 matplotlib.use('Qt5Agg')
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
-# --------- Import del dataset di immagini dalla cartella ------------------
+# --------- Import dataset -----------------
 dct_train = pd.read_pickle(r'C:\Users\AI\OneDrive - Politecnico di Milano\Desktop\Deep Learning'
                            r' Senescence\Codice_GitHub\dct_train.pickle')
 dct_test = pd.read_pickle(r'C:\Users\AI\OneDrive - Politecnico di Milano\Desktop\Deep Learning'
@@ -37,15 +37,11 @@ lst_precision = []
 lst_recall = []
 dct_y_probas = {}
 dct_pred_probas = {}
-# dct_train_test = {}
 
 for i in range(16):
     tf.keras.backend.clear_session()
     dct_y_probas[f'{i}'] = {}
     obj_data_aug = utils.DataAugmentation()
-    # arr_img_tns_train_val, arr_img_tns_test, arr_y_label_train_val, arr_y_label_test = \
-    #     train_test_split(arr_img_tns, arr_y_label, test_size=0.26, stratify=arr_y_label, shuffle=True)
-    # arr_img_tns_test_res = np.copy(utils.rescaling_array(arr_img_tns_test))
     arr_img_tns_train_val = dct_train['train_data']
     arr_y_label_train_val = dct_train['train_label']
 
@@ -64,6 +60,7 @@ for i in range(16):
     arr_img_tns_test_res_copy = np.copy(arr_img_tns_test_res)
     arr_img_tns_train_aug_res_copy = np.copy(utils.rescaling_array(arr_img_tns_train_aug))
     arr_img_tns_val_aug_res_copy = np.copy(utils.rescaling_array(arr_img_tns_val_aug))
+    
     # Shuffling dataset 
     model_fit = CNN_model(arr_img_tns_train_aug_res_copy, arr_y_label_train_aug, arr_img_tns_val_aug_res_copy,
                           arr_y_label_val_aug)
@@ -74,6 +71,7 @@ for i in range(16):
     dct_pred_probas[f'{i}'] = pred_probas
     y_classes = np.where(pred_probas > 0.5, 1, 0)
     arr_y_label_test_flt = arr_y_label_test[:, 0].astype('float64')
+    
     #accuracy
     obj_acc = tf.keras.metrics.BinaryAccuracy(threshold=0.5)
     obj_acc.update_state(arr_y_label_test_flt, pred_probas)
