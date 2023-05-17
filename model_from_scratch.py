@@ -15,7 +15,7 @@ def CNN_model(arr_img_tns_train_aug_res_copy, arr_y_label_train_aug, arr_img_tns
 
     CNN.add(Conv2D(6, kernel_size=(3, 3),
                    strides=(2, 2), padding="same",
-                   activation="relu", input_shape=(250, 300, 2)))
+                   activation="relu", input_shape=(250, 300, 3)))
 
     CNN.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2),
                          padding="valid"))
