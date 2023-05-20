@@ -40,7 +40,7 @@ dct_pred_probas = {}
 dct_class_report = {}
 dct_arr_pred = {}
 dct_auc = {}
-for i in range(20):
+for i in range(9):
     for str_nn in lst_nn:
         tf.keras.backend.clear_session()
         arr_img_tns_train_val_aug, arr_y_label_train_val_aug = \
