@@ -24,7 +24,7 @@ dct_y_probas = {}
 dct_pred_probas = {}
 dct_heatmap = {}
 
-for i in range(16):
+for i in range(9):
 
     tf.keras.backend.clear_session()
     dct_y_probas[f'{i}'] = {}
